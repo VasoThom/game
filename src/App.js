@@ -12,7 +12,16 @@ function App() {
       console.log("useEffect");
       const response = await axios.get(nounsUrl);
       console.log(response);
-      const _nouns = response.data;
+      const rawnouns = response.data;
+      const _nouns = [];
+      rawnouns.forEach((rawnoun) => {
+        const _noun = {
+          ...rawnoun,
+          isOpen: false,
+        };
+        _nouns.push(_noun);
+      });
+      console.log(_nouns);
       setNouns(_nouns);
     })();
   }, []);
@@ -25,6 +34,11 @@ function App() {
           return (
             <div className="noun" key={i}>
               <div className="front"> {noun.singular}</div>
+              {noun.isOpen && (
+                <div className="back">
+                  {noun.article} {noun.singular}
+                </div>
+              )}
             </div>
           );
         })}
