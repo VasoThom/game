@@ -19,6 +19,7 @@ function App() {
         const _noun = {
           ...rawnoun,
           isOpen: false,
+          isLearned: false,
         };
         _nouns.push(_noun);
       });

@@ -9,20 +9,36 @@ export default function Nouns({ nouns, setNouns }) {
 
     setNouns([...nouns]);
   };
+  const handleMarkasLerned = (noun) => {
+    noun.isLearned = true;
+    setNouns([...nouns]);
+  };
   return (
     <div className="nouns">
       {nouns.map((noun, i) => {
         return (
-          <div className="noun" key={i}>
-            <div className="front" onClick={() => handleToggleFlashcard(noun)}>
-              {noun.singular}
-            </div>
-            {noun.isOpen && (
-              <div className="back">
-                {noun.article} {noun.singular}
+          <>
+            {!noun.isLearned && (
+              <div className="noun" key={i}>
+                <div
+                  className="front"
+                  onClick={() => handleToggleFlashcard(noun)}
+                >
+                  {noun.singular}
+                </div>
+                {noun.isOpen && (
+                  <div className="back">
+                    {noun.article} {noun.singular}
+                    <br></br>
+                    <div className="plural">{noun.plural}</div>
+                    <button onClick={() => handleMarkasLerned(noun)}>
+                      Mark as Learned
+                    </button>
+                  </div>
+                )}
               </div>
             )}
-          </div>
+          </>
         );
       })}
     </div>
