@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const nounsUrl = "https://edwardtanguay.vercel.app/share/germanNouns.json";
 
 function App() {
+  const [nouns, setNouns] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      console.log("useEffect");
+      const response = await axios.get(nounsUrl);
+      console.log(response);
+      const _nouns = response.data;
+      setNouns(_nouns);
+    })();
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>German Noun Site</h1>
+      <p>There are {nouns.length} nouns</p>
+      <div className="nouns">
+        {nouns.map((noun, i) => {
+          return (
+            <div className="noun" key={i}>
+              <div className="front"> {noun.singular}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
