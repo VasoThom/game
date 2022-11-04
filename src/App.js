@@ -1,6 +1,7 @@
 import "./App.scss";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Nouns from "./components/Nouns";
 
 const nounsUrl = "https://edwardtanguay.vercel.app/share/germanNouns.json";
 
@@ -25,38 +26,12 @@ function App() {
       setNouns(_nouns);
     })();
   }, []);
-  const handleToggleFlashcard = (noun) => {
-    noun.isOpen = !noun.isOpen;
-    // to anoiksa einai true sto console alla den to deixnei gt  prepei na to valo sto setNouns
-    console.log(noun);
-    // setNouns(prev =>  prev = ...prev,noun.isOpen)
 
-    setNouns([...nouns]);
-  };
   return (
     <div className="App">
       <h1>German Noun Site</h1>
       <p>There are {nouns.length} nouns</p>
-      <div className="nouns">
-        {nouns.map((noun, i) => {
-          return (
-            <div className="noun" key={i}>
-              <div
-                className="front"
-                onClick={() => handleToggleFlashcard(noun)}
-              >
-                {" "}
-                {noun.singular}
-              </div>
-              {noun.isOpen && (
-                <div className="back">
-                  {noun.article} {noun.singular}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      <Nouns nouns={nouns} setNouns={setNouns} />
     </div>
   );
 }
