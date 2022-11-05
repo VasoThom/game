@@ -10,11 +10,12 @@ function App() {
 
   useEffect(() => {
     (async () => {
+      const localStorageNouns = localStorage.getItem("german");
       console.log("useEffect");
       const response = await axios.get(nounsUrl);
       console.log(response);
       const rawnouns = response.data;
-      const _nouns = [];
+      let _nouns = [];
       rawnouns.forEach((rawnoun) => {
         const _noun = {
           ...rawnoun,
@@ -24,6 +25,7 @@ function App() {
         _nouns.push(_noun);
       });
       console.log(_nouns);
+      _nouns = JSON.parse(localStorageNouns);
       setNouns(_nouns);
     })();
   }, []);
@@ -31,7 +33,10 @@ function App() {
   return (
     <div className="App">
       <h1>German Noun Site</h1>
-      <p>There are {nouns.length} nouns</p>
+      <p>
+        There are {nouns.filter((m) => m.isLearned).length} of {nouns.length}
+        nouns
+      </p>
       <Nouns nouns={nouns} setNouns={setNouns} />
     </div>
   );

@@ -8,10 +8,16 @@ export default function Nouns({ nouns, setNouns }) {
     // setNouns(prev =>  prev = ...prev,noun.isOpen)
 
     setNouns([...nouns]);
+    saveState();
   };
   const handleMarkasLerned = (noun) => {
     noun.isLearned = true;
     setNouns([...nouns]);
+    saveState();
+  };
+  const saveState = () => {
+    setNouns([...nouns]);
+    localStorage.setItem("german", JSON.stringify(nouns));
   };
   return (
     <div className="nouns">
