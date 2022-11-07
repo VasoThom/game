@@ -38,7 +38,7 @@ export default function Nouns({ nouns, setNouns }) {
                     <br></br>
                     <div className="plural">{noun.plural}</div>
                     <button onClick={() => handleMarkasLerned(noun)}>
-                      Mark as Learned
+                      Mark as Learned!
                     </button>
                   </div>
                 )}
